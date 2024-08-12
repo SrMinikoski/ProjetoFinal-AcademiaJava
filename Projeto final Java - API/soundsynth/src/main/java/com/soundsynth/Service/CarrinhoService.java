@@ -9,6 +9,8 @@ import com.soundsynth.Repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -95,21 +97,35 @@ public class CarrinhoService {
         return carrinhoRepository.save(carrinho);
     }
 
-    public BigDecimal calcularSubtotal(Long carrinhoId) {
+    public Map<String, BigDecimal> calcularSubtotal(Long carrinhoId) {
         Optional<Carrinho> optionalCarrinho = carrinhoRepository.findById(carrinhoId);
 
         if (optionalCarrinho.isPresent()) {
             Carrinho carrinho = optionalCarrinho.get();
 
-            // Calcula o subtotal
-            return carrinho.getItens().stream()
+            // Calcula o subtotal à vista
+            BigDecimal subtotalAVista = carrinho.getItens().stream()
                     .map(item -> {
-                        BigDecimal precoUnitario = item.getProduto().getPrecoAVista(); // Use o preço à vista
-                        return precoUnitario.multiply(new BigDecimal(item.getQuantidade()));
+                        BigDecimal precoUnitarioAVista = item.getProduto().getPrecoAVista();
+                        return precoUnitarioAVista.multiply(new BigDecimal(item.getQuantidade()));
                     })
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+            // Calcula o subtotal a prazo
+            BigDecimal subtotalAPrazo = carrinho.getItens().stream()
+                    .map(item -> {
+                        BigDecimal precoUnitarioAPrazo = item.getProduto().getPrecoAPrazo();
+                        return precoUnitarioAPrazo.multiply(new BigDecimal(item.getQuantidade()));
+                    })
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+            // Cria o Map para retornar os subtotais
+            Map<String, BigDecimal> subtotais = new HashMap<>();
+            subtotais.put("subtotalAVista", subtotalAVista);
+            subtotais.put("subtotalAPrazo", subtotalAPrazo);
+
+            return subtotais;
         } else {
-            // Retorna null se o carrinho não for encontrado
             return null;
         }
     }

@@ -32,7 +32,7 @@ public class ProdutoController {
     //Listar todos os produtos de determinada categoria
     @GetMapping("/buscarcategoria/{categoria}")
     public List<Produto> buscarCategoria(@PathVariable("categoria") String categoria) {
-        return produtoRepository.findAllByCategoria(categoria);
+        return produtoRepository.findByCategoriaContainingIgnoreCase(categoria);
     }
     //Buscar todos os produtos de acordo com a pesquisa de nome
     @GetMapping("/buscarnome/{nome}")

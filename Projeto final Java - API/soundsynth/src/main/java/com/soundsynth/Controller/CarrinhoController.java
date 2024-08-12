@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/carrinho")
@@ -46,8 +47,14 @@ public class CarrinhoController {
     }
 
     @GetMapping("/{carrinhoId}/subtotal")
-    public BigDecimal calcularSubtotal(@PathVariable Long carrinhoId) {
-        return carrinhoService.calcularSubtotal(carrinhoId);
+    public ResponseEntity<Map<String, BigDecimal>> calcularSubtotal(@PathVariable Long carrinhoId) {
+        Map<String, BigDecimal> subtotais = carrinhoService.calcularSubtotal(carrinhoId);
+
+        if (subtotais != null) {
+            return ResponseEntity.ok(subtotais);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/{carrinhoId}/itens")
