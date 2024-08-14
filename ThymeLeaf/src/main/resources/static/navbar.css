@@ -1,0 +1,78 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+nav{
+    background-color: #DFDACE;
+    border-bottom: solid 5px#9E2218;
+    text-align: center;
+    height: 90px;
+}
+#container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 70%;
+}
+.search{
+    width: 100%;
+}
+#searchbar{
+    width: 60%;
+    border: solid 2px #9E2218;
+    border-radius: 100px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
+    transition: .2s
+}
+#searchbar:focus{
+    border: solid 2px #d42418;
+}
+.logo{
+    width: 200px;
+    
+}
+.botoes{
+    display: flex;
+    justify-content: center;
+    width: 200px;
+
+}
+.botoes a{
+    color: black;
+    margin: 0px 5px;
+    font-size: 1.2em;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    transition: .2s;
+}
+.botoes a:hover{
+    background-color: #d42418;
+}
+/* Subcontainer */
+#subcontainer ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+    align-items: center;
+    margin-top: -5px;
+}
+#subcontainer li a{
+    text-decoration: none;
+    color: black;
+    transition: .2s;
+    font-weight: 500;
+}
+#subcontainer li a:hover{
+    color: #d42418;
+}
