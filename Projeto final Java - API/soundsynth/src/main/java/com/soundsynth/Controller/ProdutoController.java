@@ -84,6 +84,9 @@ public class ProdutoController {
             if (novoProduto.getImagem() != null) {
                 produto.setImagem(novoProduto.getImagem());
             }
+            if (novoProduto.getPromocao() != null) {
+                produto.setPromocao(novoProduto.getPromocao());
+            }
 
             // Salve o produto atualizado
             produtoRepository.save(produto);

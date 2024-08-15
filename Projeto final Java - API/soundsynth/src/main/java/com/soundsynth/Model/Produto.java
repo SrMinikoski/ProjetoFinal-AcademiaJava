@@ -18,13 +18,10 @@ public class Produto {
     private String imagem;
     private BigDecimal precoAVista;
     private BigDecimal precoAPrazo;
-    private boolean promocao;
+    private String promocao;
     private String descricao;
     private String especificacoes;
     private String marca;
 
-    public boolean getPromocao() {
-        return promocao;
-    }
 }
 
