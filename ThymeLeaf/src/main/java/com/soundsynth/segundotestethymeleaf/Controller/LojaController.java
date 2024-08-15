@@ -11,11 +11,8 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class LojaController {
 
-    @GetMapping({"/index","/"})
-    public String index() {
-        return "index";
-    }
 //Sem API
+
     @GetMapping("/produto")
         public String produto(){
             return "produto";
@@ -31,7 +28,7 @@ public class LojaController {
 //Com API
 private final RestTemplate restTemplate;
 
-    public final String API_URL = "http://localhost:8080/";
+    public final String API_URL = "http://localhost:8080";
 
     @Autowired
     public LojaController(RestTemplate restTemplate) {
@@ -44,4 +41,19 @@ private final RestTemplate restTemplate;
         model.addAttribute("produtos", produtos);
         return "vitrine";
     }
+
+
+
+    @GetMapping({"/index","/"})
+    public String home(Model model) {
+        String url = API_URL + "/produtos/listar";
+        Produto[] produtos = restTemplate.getForObject(url, Produto[].class);
+        model.addAttribute("produtos", produtos);
+        return "index";
+    }
+
+
+
+
+
 }

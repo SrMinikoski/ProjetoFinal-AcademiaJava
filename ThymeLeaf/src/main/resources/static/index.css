@@ -151,7 +151,7 @@ nav{
 .promocoes{
     width: 1170px;
     margin: 0 auto;
-    height: 430px;
+    height: 470px;
     overflow-x: scroll;
     display: flex;
     flex-direction: row;
@@ -160,7 +160,7 @@ nav{
 }
 .promocoes .celula{
     width: 250px;
-    height: 380px;
+    height: 420px;
     background-color: #C3B89E;
     display: flex;
     flex-direction: column;
@@ -187,12 +187,22 @@ nav{
     width: inherit;
     border-radius: 5px;
 }
-.celula h3{
-    font-size: 1.3em;
-    margin: 10px;
+.celula h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: fade;
+    max-width: 100%;
 }
 .celula h4{
-    font-size: 1.2em;
+    font-size: 1.1em;
+    white-space: nowrap;
+    color: rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    text-overflow: fade;
+    max-width: 100%;
 }
 .celula a{
     text-decoration: none;

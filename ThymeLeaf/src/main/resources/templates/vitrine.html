@@ -21,14 +21,16 @@
   <main>
     <h1>Nossos produtos</h1>
     <article>
-            <div class="celula" th:each="produto : ${produtos}">
-                <div class="imagem">
-                  <img src="../Assets/produtos/RGD Prestige.jpg" alt="">
-                </div><!--Imagem-->
-                  <h3 th:text="${produto.nome}"></h3>
-                  <h4 th:text="${produto.precoAVista}"></h4>
-                  <a href="#">Comprar</a>
-              </div><!--Celula-->
+      <div class="celula" th:each="produto : ${produtos}">
+        <div class="imagem">
+          <!-- Substitua o caminho da imagem se necessário -->
+          <img src="../Assets/produtos/RGD Prestige.jpg" alt="Imagem do produto">
+        </div><!--Imagem-->
+        <h3 th:text="${produto.nome}"></h3>
+        <h4 th:text="'À vista: R$: ' + ${produto.precoAVista}"></h4>
+        <h4 th:text="'À prazo: R$: ' + ${produto.precoAPrazo}"></h4>
+        <a th:href="@{/produtos/{id}(id=${produto.id})}">Comprar</a>
+      </div><!--Celula-->
     </article>
   </main>
 
