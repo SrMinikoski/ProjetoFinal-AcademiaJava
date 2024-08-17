@@ -204,7 +204,7 @@ nav{
     text-overflow: fade;
     max-width: 100%;
 }
-.celula a{
+.comprar{
     text-decoration: none;
     background-color: #9E2218;
     padding: 8px;
@@ -215,7 +215,7 @@ nav{
     color: white;
     transition: .2s;
 }
-.celula a:hover{
+.comprar:hover{
     transform: scale(1.08);
     background-color: #d42418;
 }

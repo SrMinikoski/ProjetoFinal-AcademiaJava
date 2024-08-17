@@ -73,6 +73,7 @@
     <article class="promocoes">
 
         <div class="celula" th:each="produto : ${produtos}" th:if="${produto.promocao == 'true'}">
+
             <div class="imagem">
                 <!-- Substitua o caminho da imagem se necessário -->
                 <img src="../Assets/produtos/RGD Prestige.jpg" alt="Imagem do produto">
@@ -80,7 +81,7 @@
             <h3 th:text="${produto.nome}"></h3>
             <h4 th:text="'À vista: R$: ' + ${produto.precoAVista}"></h4>
             <h4 th:text="'À prazo: R$: ' + ${produto.precoAPrazo}"></h4>
-            <a th:href="@{/produtos/{id}(id=${produto.id})}">Comprar</a>
+            <a th:href="@{/produtos/{id}(id=${produto.id})}" class="comprar">Comprar</a>
         </div><!--Celula-->
 
     </article><!--Promoções-->

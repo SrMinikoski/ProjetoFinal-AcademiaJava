@@ -7,7 +7,7 @@ nav{
     background-color: #DFDACE;
     border-bottom: solid 5px#9E2218;
     text-align: center;
-    height: 90px;
+    height: 120px;
 }
 #container{
     display: flex;
@@ -23,18 +23,23 @@ nav{
     width: 60%;
     border: solid 2px #9E2218;
     border-radius: 100px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 3px 15px;
     transition: .2s
 }
 #searchbar:focus{
     border: solid 2px #d42418;
 }
 .logo{
-    width: 200px;
-    
+    width: 120px;
+    margin: 80px 20px;
+    transition: .2s;
+    position: inherit;
+}
+.logo:hover{
+ transform: scale(1.1);
+}
+.logo img{
+    width: 100%;
 }
 .botoes{
     display: flex;
