@@ -4,54 +4,57 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SoundSynth Home</title>
+  <title>SoundSynth Carrinho de Compras</title>
   <!-- CSS -->
   <link rel="stylesheet" th:href="@{/carrinho.css}">
   <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <!--FontAwesome-->
   <script src="https://kit.fontawesome.com/acc0f57857.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-<div th:insert="fragments/navbar" :: nav></div>
+<div th:insert="fragments/navbar :: nav"></div>
 
-  <main>
-    <article>
+<main>
+  <article>
+    <h1>Carrinho de Compras</h1>
 
-      <h1>Carrinho de Compras</h1>
-      <div th:if="${carrinho.itens != null}">
-        <ul>
-          <li th:each="item : ${carrinho.itens}">
-            <p th:text="${item.nome}">Nome do Item</p>
-            <p th:text="${item.preco}">Preço do Item</p>
-          </li>
-        </ul>
+    <!-- Exibição dos itens do carrinho -->
+    <div>
+      <div class="celula" th:each="item : ${itens}">
+        <div class="imagem">
+          <img src="/Assets/produtos/RGD Prestige.jpg">
+        </div>
+        <h3 th:text="${item.produto.nome}">Ibanez RG Prestige</h3>
+        <h4 th:text="'R$: ' + ${item.produto.precoAVista}"></h4>
+        <a href="#" th:href="@{/carrinho/remover/${item.id}|}"><i class="fa-solid fa-trash"></i></a>
       </div>
-      <div th:unless="${carrinho.itens != null}">
-        <p>Nenhum item no carrinho.</p>
-      </div>
+    </div>
 
-    </article>
+    <!-- Mensagem para carrinho vazio -->
+    <div th:if="${#lists.isEmpty(itens)}">
+      <p>Nenhum item no carrinho.</p>
+    </div>
 
-    <section class="finalizar">
-        <h1>Subtotal: R$65.544,65</h1>
-        <label for="frete">Digite seu CEP:</label><input type="text" name="frete" id="frete">
-        <button type="submit">Finalizar compra</button>
-    </section>
+  </article>
 
-  </main>
+  <!-- Seção de finalização de compra -->
+  <section class="finalizar" th:if="${!#lists.isEmpty(itens)}">
+    <h2>Subtotal à Vista: R$ <span th:text="${subtotais['subtotalAVista']}">0.00</span></h2>
+    <h2>Subtotal a Prazo: R$ <span th:text="${subtotais['subtotalAPrazo']}">0.00</span></h2>
+    <label for="frete">Digite seu CEP:</label>
+    <input type="text" name="frete" id="frete">
+    <button type="submit">Finalizar compra</button>
+  </section>
 
+</main>
 
+<div th:insert="fragments/footer :: footer"></div>
 
-<div th:insert="fragments/footer" :: footer></div>
-
-  <!-- Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

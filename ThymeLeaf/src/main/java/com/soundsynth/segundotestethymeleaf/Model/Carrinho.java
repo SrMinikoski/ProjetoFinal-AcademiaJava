@@ -9,9 +9,4 @@ import java.util.List;
 public class Carrinho {
     private Long id;
     private List<ItemCarrinho> itens = new ArrayList<>();
-
-
-    public List<ItemCarrinho> getItens() {
-        return itens;
-    }
 }
