@@ -1,0 +1,125 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+main{
+    min-height: 540px;
+}
+article{
+    width: 1170px;
+    height: fit-content;
+    padding: 20px;
+    margin: 50px auto;
+    background-color: #DFDACE;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.171);
+}
+.celula{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    width: 1100px;
+    margin: 20px auto;
+    height: 200px;
+    background-color: #C3B89E;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.171);
+    transition: .2s;
+    border: solid 2px transparent;
+}
+.celula:hover{
+        transform: scale(1.02);
+    border: solid 2px #9E2218;
+}
+
+.imagem{
+    height: 180px;
+    width: 180px;
+}
+.imagem img{
+    width: 100%;
+    border-radius: 5px;
+    border: solid 2px #9E2218;
+}
+.celula a{
+    font-size: 1.2em;
+    color: black;
+    transition: .2s;
+}
+.celula a:hover{
+    color: #9E2218;
+}
+.title{
+    width: 50%;
+}
+.title h3{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: fade;
+    max-width: 100%;
+}
+h1{
+    text-align: center;
+}
+
+section{
+    width: 1170px;
+    height: 100px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: row;
+    padding: 40px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #DFDACE;
+    border-radius: 50px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.171);
+    border: solid 3px #9E2218;
+}
+section h1{
+    font-size: 2em;
+    color: #9E2218;
+}
+section label{
+    font-size: 1.3em;
+}
+section input{
+    width: 250px;
+    border-radius: 50px;
+    border: solid 2px #C3B89E;
+}
+section button{
+    height: 40px;
+    width: 150px;
+    border: none;
+    border-radius: 50px;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    transition: .2s;
+}
+section button:hover{
+    transform: scale(1.05);
+    background-color: rgb(0, 189, 0);
+}
+.finalizar h2{
+    font-size: 1.35em;
+    margin-top: 10px;
+}
+.finalizar button{
+    margin: 0px 10px;
+}
+.finalizar label{
+    font-size: 1.35em;
+    font-weight: 500;
+}
+
+
+
+
+
