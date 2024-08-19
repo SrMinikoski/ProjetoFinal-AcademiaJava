@@ -1,7 +1,9 @@
 package com.soundsynth.Controller;
 
+import ch.qos.logback.core.model.Model;
 import com.soundsynth.Model.Carrinho;
 import com.soundsynth.Model.ItemCarrinho;
+import com.soundsynth.Repository.ItemCarrinhoRepository;
 import com.soundsynth.Service.CarrinhoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +18,11 @@ import java.util.Map;
 public class CarrinhoController {
 
     private final CarrinhoService carrinhoService;
+    private final ItemCarrinhoRepository itemCarrinhoRepository;
 
-    public CarrinhoController(CarrinhoService carrinhoService) {
+    public CarrinhoController(CarrinhoService carrinhoService, ItemCarrinhoRepository itemCarrinhoRepository) {
         this.carrinhoService = carrinhoService;
+        this.itemCarrinhoRepository = itemCarrinhoRepository;
     }
 
     @PostMapping("/novo")
@@ -48,7 +52,11 @@ public class CarrinhoController {
 
     @GetMapping("/{carrinhoId}/subtotal")
     public ResponseEntity<Map<String, BigDecimal>> calcularSubtotal(@PathVariable Long carrinhoId) {
-        Map<String, BigDecimal> subtotais = carrinhoService.calcularSubtotal(carrinhoId);
+        // Obtém o carrinho com o ID fornecido
+        Carrinho carrinho = carrinhoService.obterCarrinhoPorId(carrinhoId);
+
+        // Calcula os subtotais
+        Map<String, BigDecimal> subtotais = carrinhoService.calcularSubtotais(carrinho);
 
         if (subtotais != null) {
             return ResponseEntity.ok(subtotais);
@@ -61,6 +69,33 @@ public class CarrinhoController {
     public List<ItemCarrinho> listarItens(@PathVariable Long carrinhoId) {
         Carrinho carrinho = carrinhoService.obterCarrinhoPorId(carrinhoId);
         return carrinho.getItens();
+    }
+    @PutMapping("/{carrinhoId}/aumentar/{itemId}")
+    public ResponseEntity<Void> aumentarQuantidade(@PathVariable Long carrinhoId, @PathVariable Long itemId) {
+        if (carrinhoId == null || itemId == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        try {
+            carrinhoService.aumentarQuantidade(carrinhoId, itemId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/{carrinhoId}/diminuir/{itemId}")
+    public ResponseEntity<Void> diminuirQuantidade(@PathVariable Long carrinhoId, @PathVariable Long itemId) {
+        if (carrinhoId == null || itemId == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        try {
+            carrinhoService.diminuirQuantidade(carrinhoId, itemId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 }

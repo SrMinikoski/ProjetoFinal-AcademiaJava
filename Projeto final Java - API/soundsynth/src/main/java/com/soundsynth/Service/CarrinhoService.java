@@ -6,6 +6,7 @@ import com.soundsynth.Model.Produto;
 import com.soundsynth.Repository.CarrinhoRepository;
 import com.soundsynth.Repository.ItemCarrinhoRepository;
 import com.soundsynth.Repository.ProdutoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -97,41 +98,62 @@ public class CarrinhoService {
         return carrinhoRepository.save(carrinho);
     }
 
-    public Map<String, BigDecimal> calcularSubtotal(Long carrinhoId) {
-        Optional<Carrinho> optionalCarrinho = carrinhoRepository.findById(carrinhoId);
+    public Map<String, BigDecimal> calcularSubtotais(Carrinho carrinho) {
+        Map<String, BigDecimal> subtotais = new HashMap<>();
 
-        if (optionalCarrinho.isPresent()) {
-            Carrinho carrinho = optionalCarrinho.get();
+        BigDecimal subtotalAVista = carrinho.getItens().stream()
+                .map(item -> item.getProduto().getPrecoAVista().multiply(new BigDecimal(item.getQuantidade())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-            // Calcula o subtotal à vista
-            BigDecimal subtotalAVista = carrinho.getItens().stream()
-                    .map(item -> {
-                        BigDecimal precoUnitarioAVista = item.getProduto().getPrecoAVista();
-                        return precoUnitarioAVista.multiply(new BigDecimal(item.getQuantidade()));
-                    })
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal subtotalAPrazo = carrinho.getItens().stream()
+                .map(item -> item.getProduto().getPrecoAPrazo().multiply(new BigDecimal(item.getQuantidade())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-            // Calcula o subtotal a prazo
-            BigDecimal subtotalAPrazo = carrinho.getItens().stream()
-                    .map(item -> {
-                        BigDecimal precoUnitarioAPrazo = item.getProduto().getPrecoAPrazo();
-                        return precoUnitarioAPrazo.multiply(new BigDecimal(item.getQuantidade()));
-                    })
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        subtotais.put("subtotalAVista", subtotalAVista);
+        subtotais.put("subtotalAPrazo", subtotalAPrazo);
 
-            // Cria o Map para retornar os subtotais
-            Map<String, BigDecimal> subtotais = new HashMap<>();
-            subtotais.put("subtotalAVista", subtotalAVista);
-            subtotais.put("subtotalAPrazo", subtotalAPrazo);
-
-            return subtotais;
-        } else {
-            return null;
-        }
+        return subtotais;
     }
     public Carrinho obterCarrinhoPorId(Long carrinhoId) {
         return carrinhoRepository.findById(carrinhoId)
                 .orElseThrow(() -> new RuntimeException("Carrinho não encontrado"));
+    }
+    @Transactional
+    public void aumentarQuantidade(Long carrinhoId, Long itemId) {
+        // Obtém o item pelo ID
+        ItemCarrinho item = itemCarrinhoRepository.findById(itemId)
+                .orElseThrow(() -> new RuntimeException("Item não encontrado"));
+
+        // Verifica se o item pertence ao carrinho
+        if (!item.getCarrinho().getId().equals(carrinhoId)) {
+            throw new RuntimeException("O item não pertence ao carrinho especificado");
+        }
+
+        // Aumenta a quantidade
+        item.setQuantidade(item.getQuantidade() + 1);
+        itemCarrinhoRepository.save(item);
+    }
+
+    @Transactional
+    public void diminuirQuantidade(Long carrinhoId, Long itemId) {
+        // Obtém o item pelo ID
+        ItemCarrinho item = itemCarrinhoRepository.findById(itemId)
+                .orElseThrow(() -> new RuntimeException("Item não encontrado"));
+
+        // Verifica se o item pertence ao carrinho
+        if (!item.getCarrinho().getId().equals(carrinhoId)) {
+            throw new RuntimeException("O item não pertence ao carrinho especificado");
+        }
+
+        // Diminui a quantidade
+        int novaQuantidade = item.getQuantidade() - 1;
+        if (novaQuantidade > 0) {
+            item.setQuantidade(novaQuantidade);
+            itemCarrinhoRepository.save(item);
+        } else {
+            // Remove o item do carrinho se a quantidade for 0 ou negativa
+            itemCarrinhoRepository.delete(item);
+        }
     }
 }
 
