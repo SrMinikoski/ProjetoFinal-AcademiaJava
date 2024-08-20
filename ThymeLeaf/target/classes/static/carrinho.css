@@ -67,6 +67,44 @@ h1{
     text-align: center;
 }
 
+.qtd{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.quant-btn{
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    text-align: center;
+    border: none;
+    margin: 10px;
+}
+.quant-btn i{
+    font-size: 1em;
+    transition: .2s;
+}
+.quant-btn i:hover{
+    transform: scale(1.1);
+    color: #9E2218;
+}
+
+.itemqtd{
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: solid 2px black ;
+}
+
 section{
     width: 1170px;
     height: 100px;

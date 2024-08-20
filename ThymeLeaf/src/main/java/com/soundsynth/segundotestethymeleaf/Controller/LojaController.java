@@ -54,6 +54,8 @@ private final RestTemplate restTemplate;
         return "index";
     }
 
+
+
     @GetMapping("/buscarcategoria/{categoria}")
     public String categoria(@PathVariable("categoria") String categoria, Model model) {
         String url = API_URL + "/produtos/buscarcategoria/" + categoria;
@@ -71,7 +73,29 @@ private final RestTemplate restTemplate;
         return "vitrine";
     }
 
+    @GetMapping("/produto/{id}")
+    public String exibirProduto(@PathVariable Long id, Model model) {
+        try {
+            // Faz a requisição à API para buscar o produto por ID
+            Produto produto = restTemplate.getForObject(API_URL + "/produtos/buscarid/" + id, Produto.class);
 
+            // Verifica se o produto foi retornado com sucesso
+            if (produto != null) {
+                // Adiciona o produto ao modelo para exibição na página
+                model.addAttribute("produto", produto);
+                return "produto"; // Retorna a página "produto.html" com os dados do produto
+            } else {
+                // Produto não encontrado
+                model.addAttribute("erro", "Produto não encontrado.");
+                return "error";
+            }
+        } catch (Exception e) {
+            // Captura qualquer exceção e imprime o erro para depuração
+            e.printStackTrace();
+            model.addAttribute("erro", "Ocorreu um erro ao buscar o produto.");
+            return "error";
+        }
+    }
     //Carrinho
 
     @GetMapping("/carrinho/{carrinhoId}")
