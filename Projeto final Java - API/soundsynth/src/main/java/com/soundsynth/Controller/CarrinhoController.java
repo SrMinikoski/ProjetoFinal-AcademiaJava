@@ -15,6 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/carrinho")
+@CrossOrigin(origins = "http://localhost:8090")
 public class CarrinhoController {
 
     private final CarrinhoService carrinhoService;

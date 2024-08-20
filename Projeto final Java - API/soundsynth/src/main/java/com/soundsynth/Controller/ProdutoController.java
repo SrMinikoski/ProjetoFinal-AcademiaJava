@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/produtos")
+@CrossOrigin(origins = "http://localhost:8090")
 public class ProdutoController {
 
     @Autowired
@@ -25,10 +26,12 @@ public class ProdutoController {
         return produtoRepository.findAll();
     }
     //Listar o produto de determinado ID
+
     @GetMapping("/buscarid/{id}")
-    public List<Produto> buscarid(@PathVariable("id") Long id) {
-        return produtoRepository.findAllById(id);
+    public Produto buscarPorId(@PathVariable("id") Long id) {
+        return produtoRepository.findById(id).orElse(null);
     }
+
     //Listar todos os produtos de determinada categoria
     @GetMapping("/buscarcategoria/{categoria}")
     public List<Produto> buscarCategoria(@PathVariable("categoria") String categoria) {
