@@ -81,7 +81,7 @@
             <h3 th:text="${produto.nome}"></h3>
             <h4 th:text="'À vista: R$: ' + ${produto.precoAVista}"></h4>
             <h4 th:text="'À prazo: R$: ' + ${produto.precoAPrazo}"></h4>
-            <a th:href="@{/produtos/{id}(id=${produto.id})}" class="comprar">Comprar</a>
+            <a th:href="@{/produto/{id}(id=${produto.id})}" class="comprar">Comprar</a>
         </div><!--Celula-->
 
     </article><!--Promoções-->

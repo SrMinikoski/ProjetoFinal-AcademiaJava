@@ -1,70 +1,87 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-nav{
+
+nav {
     background-color: #DFDACE;
-    border-bottom: solid 5px#9E2218;
+    border-bottom: solid 5px #9E2218;
     text-align: center;
     height: 120px;
 }
-#container{
+
+#container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     height: 70%;
 }
-.search{
-    width: 100%;
+
+.search {
+    width: fit-content;
 }
-#searchbar{
-    width: 60%;
+
+#searchbar {
+    width: 600px;
+    margin: 10px 60px auto;
     border: solid 2px #9E2218;
     border-radius: 100px;
     padding: 3px 15px;
     transition: .2s
 }
-#searchbar:focus{
+
+#searchbar:focus {
     border: solid 2px #d42418;
 }
-.logo{
-    width: 120px;
+
+.logo {
+    width: 200px;
     margin: 80px 20px;
     transition: .2s;
     position: inherit;
 }
-.logo:hover{
- transform: scale(1.1);
-}
-.logo img{
-    width: 100%;
-}
-.botoes{
-    display: flex;
-    justify-content: center;
-    width: 200px;
 
+.logo:hover {
+    transform: scale(1.1);
 }
-.botoes a{
-    color: black;
-    margin: 0px 5px;
-    font-size: 1.2em;
-    background-color: transparent;
+
+.logo img {
+    width: 45%;
+}
+
+.navbotoes a {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 35px;
-    height: 35px;
+    text-align: center;
+    width: 240px;
+    font-weight: 500;
+    height: fit-content;
+    padding: 10px 5px;
+    text-decoration: none;
+    background-color: transparent;
+    color: black;
     border-radius: 50px;
     transition: .2s;
 }
-.botoes a:hover{
+
+.navbotoes a:hover {
     background-color: #d42418;
+    color: white;
 }
+
+form {
+    width: fit-content;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Subcontainer */
-#subcontainer ul{
+#subcontainer ul {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -72,12 +89,14 @@ nav{
     align-items: center;
     margin-top: -5px;
 }
-#subcontainer li a{
+
+#subcontainer li a {
     text-decoration: none;
     color: black;
     transition: .2s;
     font-weight: 500;
 }
-#subcontainer li a:hover{
+
+#subcontainer li a:hover {
     color: #d42418;
 }

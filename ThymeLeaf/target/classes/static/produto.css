@@ -175,6 +175,14 @@ article {
     transform: scale(1.05);
 }
 
+#adicionarbtn{
+    border: none;
+    background-color: transparent;
+    transition: .2s;
+    color: white;
+}
+
+
 main {
     min-height: 520px;
     text-align: center;

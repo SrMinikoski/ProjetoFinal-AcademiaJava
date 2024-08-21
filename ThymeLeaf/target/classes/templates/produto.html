@@ -24,7 +24,7 @@
         <div class="produto">
             <div class="imagem">
                 <!-- Ajuste o caminho da imagem conforme necessário -->
-                <img src="#" alt="Imagem do Produto">
+                <img src="../Assets/produtos/RGD Prestige.jpg" alt="Imagem do produto">
             </div><!--imagem-->
             <div class="menu">
                 <p id="nome"><b>Produto: </b> <span th:text="${produto.nome}">Nome do Produto</span></p>
@@ -33,7 +33,7 @@
                 <p id="aprazo"><b>Preço à prazo: </b> <span th:text="'R$: ' + ${produto.precoAPrazo}">Preço à prazo</span></p>
                 <p id="adicionar">
                     <!-- Usando th:onclick para construir o evento com Thymeleaf -->
-                    <button id="adicionarAoCarrinhoBtn" th:onclick="'adicionarAoCarrinho(' + ${produto.id} + ')'" >
+                    <button id="adicionarbtn" th:onclick="'adicionarAoCarrinho(' + ${produto.id} + ')'" >
                         Adicionar ao carrinho
                     </button>
                 </p>
