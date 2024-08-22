@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastrar Produto</title>
+</head>
+<body>
+<h1>Cadastrar Produto</h1>
+<form id="produtoForm" enctype="multipart/form-data">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required><br><br>
+
+    <label for="categoria">Categoria:</label>
+    <input type="text" id="categoria" name="categoria" required><br><br>
+
+    <label for="precoAVista">Preço à Vista:</label>
+    <input type="text" id="precoAVista" name="precoAVista" required><br><br>
+
+    <label for="precoAPrazo">Preço a Prazo:</label>
+    <input type="text" id="precoAPrazo" name="precoAPrazo" required><br><br>
+
+    <label for="promocao">Promoção:</label>
+    <select id="promocao" name="promocao">
+        <option value="true">True</option>
+        <option value="false">False</option>
+    </select><br><br>
+
+    <label for="descricao">Descrição:</label>
+    <input type="text" id="descricao" name="descricao" required><br><br>
+
+    <label for="especificacoes">Especificações:</label>
+    <input type="text" id="especificacoes" name="especificacoes" required><br><br>
+
+    <label for="marca">Marca:</label>
+    <input type="text" id="marca" name="marca" required><br><br>
+
+    <label for="imagem">Imagem do Produto:</label>
+    <input type="file" id="imagem" name="imagem" required><br><br>
+
+    <button type="button" onclick="salvarProduto()">Salvar Produto</button>
+
+</form>
+</body>
+<script>
+    function salvarProduto() {
+        const form = document.getElementById('produtoForm');
+        const formData = new FormData(form); // Cria um FormData a partir do formulário
+
+        // Envia os dados do produto, incluindo a imagem, para a API
+        fetch('http://localhost:8080/produtos/adicionar', {
+            method: 'POST',
+            body: formData, // Envia o FormData com o arquivo de imagem
+        })
+            .then((response) => {
+                // Verifica se a resposta não é JSON (tratando redirecionamento ou outros tipos)
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    return response.json();
+                } else {
+                    return response.text(); // Se não for JSON, trata como texto (ex: redirecionamento)
+                }
+            })
+            .then((data) => {
+                if (typeof data === "string" && data.startsWith("redirect:")) {
+                    // Se o servidor retornou um redirecionamento
+                    const redirectUrl = data.split("redirect:")[1];
+                    window.location.href = redirectUrl; // Redireciona para a URL retornada
+                } else {
+                    console.log('Produto salvo com sucesso:', data);
+                    // Exibe uma mensagem de sucesso ou redireciona
+                }
+            })
+            .catch((error) => {
+                console.error('Erro:', error);
+                // Exibir uma mensagem de erro
+            });
+    }
+</script>
+</html>

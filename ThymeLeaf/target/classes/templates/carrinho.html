@@ -27,7 +27,7 @@
         <div>
             <div class="celula" th:each="item : ${itens}">
                 <div class="imagem">
-                    <img src="/Assets/produtos/RGD Prestige.jpg">
+                    <img th:src="@{${item.produto.imagem}}" alt="Imagem do produto"/>
                 </div>
 
                 <div class="title">

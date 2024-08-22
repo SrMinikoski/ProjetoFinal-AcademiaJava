@@ -24,7 +24,7 @@
         <div class="produto">
             <div class="imagem">
                 <!-- Ajuste o caminho da imagem conforme necessário -->
-                <img src="../Assets/produtos/RGD Prestige.jpg" alt="Imagem do produto">
+                <img th:src="@{${produto.imagem}}" alt="Imagem do produto"/>
             </div><!--imagem-->
             <div class="menu">
                 <p id="nome"><b>Produto: </b> <span th:text="${produto.nome}">Nome do Produto</span></p>

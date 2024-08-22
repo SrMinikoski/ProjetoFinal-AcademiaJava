@@ -21,6 +21,12 @@ public class LojaController {
 
 //Sem API
 
+@GetMapping("/cadastrarproduto")
+public String cadastrarProduto() {
+    return "cadastrarProduto";
+}
+
+
     @GetMapping("/produto")
         public String produto(){
             return "produto";
