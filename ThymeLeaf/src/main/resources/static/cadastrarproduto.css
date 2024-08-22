@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    padding-top: 50px;
+    text-align: center;
+
+}
+
+#produtoForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: fit-content;
+    background-color: #DFDACE;
+    padding: 50px;
+    border-radius: 20px;
+    margin: 50px auto;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.171);
+}
+
+#produtoForm input, textarea, select {
+    width: 600px;
+    height: 35px;
+    margin: 5px;
+    border-radius: 10px;
+    border: solid 2px #9E2218;
+}
+
+#produtoForm textarea {
+    height: 200px;
+}
+
+#inputGroupFile01 {
+    width: 400px !important;
+    padding: 0px;
+    margin-top: 0px !important;
+}
+
+#produtoForm label, p {
+    font-size: 1.3em;
+    margin: 5px;
+    height: fit-content;
+}
+
+.input-group {
+    height: fit-content !important;
+    margin: -10px !important;
+    padding: -10px !important;
+}
+
+#promocao, #especificacoes, #descricao, #categoria {
+    margin: 5px;
+}
+
+#marca, #especificacoes, #descricao, #precoAPrazo, #precoAVista, #nome, #categoria, #promocao {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#marca, #especificacoes, #descricao, #precoAPrazo, #precoAVista, #nome {
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+#cadastrar{
+    padding: 10px;
+    width: 220px;
+    background-color: green !important;
+    color: white;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    margin: 50px auto;
+    border-radius: 50px;
+    transition: .2s;
+    border: none;
+    font-size: 1.3em;
+}
+#cadastrar:hover{
+    transform: scale(1.05);
+}
