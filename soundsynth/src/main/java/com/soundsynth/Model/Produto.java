@@ -19,7 +19,9 @@ public class Produto {
     private BigDecimal precoAVista;
     private BigDecimal precoAPrazo;
     private String promocao;
+    @Column (length = 10000)
     private String descricao;
+    @Column (length = 10000)
     private String especificacoes;
     private String marca;
 
