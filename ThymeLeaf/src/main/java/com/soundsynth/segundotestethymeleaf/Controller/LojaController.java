@@ -7,10 +7,7 @@ import com.soundsynth.segundotestethymeleaf.Config.AppConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
@@ -50,6 +47,40 @@ private final RestTemplate restTemplate;
         Produto[] produtos = restTemplate.getForObject(url, Produto[].class);
         model.addAttribute("produtos", produtos);
         return "vitrine";
+    }
+    @GetMapping("/produtos/listarAdm")
+    public String listarAdm(Model model) {
+        String url = API_URL + "/produtos/listar";
+        Produto[] produtos = restTemplate.getForObject(url, Produto[].class);
+        model.addAttribute("produtos", produtos);
+        return "vitrineADm";
+    }
+
+    @DeleteMapping("/produtos/excluir/{id}")
+    public String excluirProduto(@PathVariable Long id, Model model) {
+        String url = API_URL + "/produtos/excluir/" + id;
+        restTemplate.delete(url);
+        return "redirect:/produtos/listarAdm";
+    }
+
+
+    @GetMapping("/editarproduto/{id}")
+    public String editarProduto(@PathVariable Long id, Model model) {
+        try {
+            Produto produto = restTemplate.getForObject(API_URL + "/produtos/buscarid/" + id, Produto.class);
+
+            if (produto != null) {
+                model.addAttribute("produto", produto);
+                return "editarProduto"; // Retorna a página "editarProduto.html" com os dados do produto
+            } else {
+                model.addAttribute("erro", "Produto não encontrado.");
+                return "error";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("erro", "Ocorreu um erro ao buscar o produto.");
+            return "error";
+        }
     }
 
     @GetMapping({"/index","/"})
