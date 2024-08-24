@@ -12,20 +12,26 @@
 <body>
 <nav th:fragment="nav">
     <div class="container-fluid" id="container">
+
         <div class="logo">
             <a href="/index"><img src="/Assets/logo.png" alt=""></a>
         </div> <!--logo -->
+
         <div class="search">
             <form th:action="@{/buscarnome}" method="get">
-                <input type="text" name="nome" id="searchbar" placeholder="Pesquisar">
+                <input type="text" name="nome" id="searchbar" placeholder="&nbsp Pesquisar">
             </form>
         </div> <!--search-->
+
         <div class="navbotoes">
-            <a href="http://localhost:8090/carrinho/1">Carrinho de compras &nbsp <i class="fa-solid fa-basket-shopping"></i></a>
-            <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
-                <button type="submit">Logout</button>
+            <a href="http://localhost:8090/carrinho/1">Carrinho &nbsp <i class="fa-solid fa-cart-shopping"></i></a>
+
+            <form th:action="@{/logout}" method="post" >
+                <button type="submit" sec:authorize="isAuthenticated()">Sair &nbsp<i class="fa-solid fa-right-from-bracket" ></i></button>
             </form>
+
         </div> <!--botoes-->
+
     </div><!--container-->
 
     <div id="subcontainer" class="container-fluid">
