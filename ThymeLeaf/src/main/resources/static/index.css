@@ -3,86 +3,23 @@
     margin: 0;
     padding: 0;
 }
-/* Nav */
-nav{
-    background-color: #DFDACE;
-    border-bottom: solid 5px#9E2218;
+.carousel-control-next, .carousel-control-prev {
+    position: absolute;
+    top: 115px !important;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6% !important;
+    padding: 0;
+    color: #fff;
     text-align: center;
-    height: 90px;
+    background: 0 0;
+    border: 0;
+    opacity: 3.5 !important;
+    transition: opacity .10s ease !important;
 }
-#container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 70%;
-}
-.search{
-    width: 100%;
-}
-#searchbar{
-    width: 60%;
-    border: solid 2px #9E2218;
-    border-radius: 100px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    padding-left: 15px;
-    padding-right: 15px;
-    transition: .2s
-}
-#searchbar:focus{
-    border: solid 2px #d42418;
-}
-.logo{
-    width: 200px;
-    
-}
-.botoes{
-    display: flex;
-    justify-content: center;
-    width: 200px;
-
-}
-.botoes a{
-    color: black;
-    margin: 0px 5px;
-    font-size: 1.2em;
-    background-color: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 35px;
-    height: 35px;
-    border-radius: 50px;
-    transition: .2s;
-}
-.botoes a:hover{
-    background-color: #d42418;
-}
-/* Subcontainer */
-#subcontainer ul{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    list-style: none;
-    align-items: center;
-    margin-top: -5px;
-}
-#subcontainer li a{
-    text-decoration: none;
-    color: black;
-    transition: .2s;
-    font-weight: 500;
-}
-#subcontainer li a:hover{
-    color: #d42418;
-}
-
-
-
-/* Main */
-
-
 .carrossel{
     width: 50%;
     margin: 20px auto;
@@ -113,6 +50,7 @@ nav{
     justify-content: space-around;
     border-radius: 5px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.171);
+    transition: .2s;
 }
 .beneficios div{
     display: flex;
@@ -124,6 +62,7 @@ nav{
     margin: 10px;
     border-radius: 5px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.171);
+    transition: .2s;
 }
 .beneficios div i,p{
     font-size: 1.5em;
@@ -269,46 +208,42 @@ nav{
     background-size: 100%;
 }
 
-/* Footer */
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-footer{
+.beneficios span{
+    position: absolute;
+    background-color: white;
+    width: inherit;
+    margin-top: 70px;
     background-color: #DFDACE;
-    border-top: 5px #9E2218 solid;
-    text-align: center;
-    bottom: 0;
+    border-radius: 10px;
+    text-align: justify;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.171);
+    padding: 0px 10px;
+    font-size: 0.9em;
+    overflow: hidden;
+    text-overflow: fade;
+    height: 0;
+    transition: .2s;
+    animation-delay: 1s;
 }
-footer ul{
-    list-style: none;
-    display: flex;
-    margin: 0 auto;
-    padding: 0;
-    flex-direction: row;
-    justify-content: center;
+.frete:hover,.preco:hover,.garantia:hover,.regulagem:hover{
+    transform: translateY(-5px) scale(1.05);
 }
-footer ul li{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    background-color: #9E2218;
-    border-radius: 100px;
-    font-size: 1.3em;
-    margin: 0px 10px;
-    
+.frete:hover > #sfrete{
+    height: 180px;
+    transition: .5s;
 }
-footer ul li a{
-    color: #ec6960;
+
+.preco:hover > #spreco{
+    height: 200px;
+    transition: .5s;
 }
-.autor{
-    font-size: 0.5em;
-    color: gray;
+
+.garantia:hover > #sgarantia{
+    height: 180px;
+    transition: .5s;
 }
-footer p{
-    margin: 0px;
-    padding: 5px;
+
+.regulagem:hover > #sregulagem{
+    height: 170px;
+    transition: .5s;
 }
