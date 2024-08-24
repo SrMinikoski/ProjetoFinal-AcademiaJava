@@ -42,8 +42,15 @@ public class CarrinhoController {
     }
 
     @DeleteMapping("/{carrinhoId}/remover/{itemId}")
-    public Carrinho removerItem(@PathVariable Long carrinhoId, @PathVariable Long itemId) {
-        return carrinhoService.removerItem(carrinhoId, itemId);
+    public ResponseEntity<Carrinho> removerItem(@PathVariable Long carrinhoId, @PathVariable Long itemId) {
+        try {
+            Carrinho carrinho = carrinhoService.removerItem(carrinhoId, itemId);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            // Adicione um log para verificar o erro
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @PutMapping("/{carrinhoId}/itens/{itemId}")

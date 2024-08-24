@@ -80,10 +80,16 @@ public class CarrinhoService {
         ItemCarrinho item = itemCarrinhoRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Item não encontrado"));
 
+        // Remove o item do carrinho
         carrinho.removerItem(item);
+
+        // Salva as alterações no carrinho
+        carrinhoRepository.save(carrinho);
+
+        // Exclui o item
         itemCarrinhoRepository.delete(item);
 
-        return carrinhoRepository.save(carrinho);
+        return carrinho;
     }
 
     public Carrinho atualizarQuantidade(Long carrinhoId, Long itemId, int quantidade) {
