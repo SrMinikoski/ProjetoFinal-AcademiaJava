@@ -2,7 +2,6 @@ package com.soundsynth.segundotestethymeleaf.Model;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 @Data

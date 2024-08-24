@@ -38,6 +38,9 @@ footer ul li:hover{
 footer ul li a{
     color: #ec6960;
 }
+footer ul li i{
+    line-height: 2 !important;
+}
 .autor{
     font-size: 0.5em;
     color: gray;

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- CSS -->
     <link rel="stylesheet" th:href="@{/navbar.css}">
@@ -22,6 +22,9 @@
         </div> <!--search-->
         <div class="navbotoes">
             <a href="http://localhost:8090/carrinho/1">Carrinho de compras &nbsp <i class="fa-solid fa-basket-shopping"></i></a>
+            <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                <button type="submit">Logout</button>
+            </form>
         </div> <!--botoes-->
     </div><!--container-->
 

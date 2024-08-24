@@ -1,9 +1,7 @@
 package com.soundsynth.segundotestethymeleaf.Controller;
 
-import com.soundsynth.segundotestethymeleaf.Model.Carrinho;
 import com.soundsynth.segundotestethymeleaf.Model.ItemCarrinho;
 import com.soundsynth.segundotestethymeleaf.Model.Produto;
-import com.soundsynth.segundotestethymeleaf.Config.AppConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,21 +16,29 @@ public class LojaController {
 
 //Sem API
 
-@GetMapping("/cadastrarproduto")
-public String cadastrarProduto() {
-    return "cadastrarProduto";
-}
+
+    @GetMapping("/cadastrarproduto")
+    public String cadastrarProduto() {
+        return "cadastrarProduto";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 
     @GetMapping("/produto")
-        public String produto(){
-            return "produto";
-        }
+    public String produto() {
+        return "produto";
+    }
+
     @GetMapping("/vitrine")
-    public String vitrine(){
+    public String vitrine() {
         return "vitrine";
     }
-//Com API
-private final RestTemplate restTemplate;
+
+    //Com API
+    private final RestTemplate restTemplate;
 
     public final String API_URL = "http://localhost:8080";
 
@@ -40,6 +46,7 @@ private final RestTemplate restTemplate;
     public LojaController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
+
     @GetMapping("/produtos/listar")
     public String listar(Model model) {
         String url = API_URL + "/produtos/listar";
@@ -47,6 +54,7 @@ private final RestTemplate restTemplate;
         model.addAttribute("produtos", produtos);
         return "vitrine";
     }
+
     @GetMapping("/listarAdm")
     public String listarAdm(Model model) {
         String url = API_URL + "/produtos/listar";
@@ -54,7 +62,6 @@ private final RestTemplate restTemplate;
         model.addAttribute("produtos", produtos);
         return "vitrineADm";
     }
-
 
 
     @DeleteMapping("/produtos/excluir/{id}")
@@ -84,14 +91,13 @@ private final RestTemplate restTemplate;
         }
     }
 
-    @GetMapping({"/index","/"})
+    @GetMapping({"/index", "/"})
     public String home(Model model) {
         String url = API_URL + "/produtos/listar";
         Produto[] produtos = restTemplate.getForObject(url, Produto[].class);
         model.addAttribute("produtos", produtos);
         return "index";
     }
-
 
 
     @GetMapping("/buscarcategoria/{categoria}")
