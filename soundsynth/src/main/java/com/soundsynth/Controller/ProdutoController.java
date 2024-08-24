@@ -2,6 +2,7 @@ package com.soundsynth.Controller;
 
 
 import com.soundsynth.Model.Produto;
+import com.soundsynth.Repository.ItemCarrinhoRepository;
 import com.soundsynth.Repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -105,21 +107,38 @@ public class ProdutoController {
         // Retorna o caminho do arquivo relativo para ser salvo no banco de dados
         return "/Assets/produtos/" + nomeArquivo;
     }
-
+    @Autowired
+    ItemCarrinhoRepository itemCarrinhoRepository;
     @DeleteMapping("/excluir/{id}")
-    public ResponseEntity<HttpStatus> excluir(@PathVariable Long id) {
-        produtoRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> excluirProduto(@PathVariable Long id) {
+        try {
+            // Primeiro, remova os itens associados ao produto
+            itemCarrinhoRepository.deleteByProdutoId(id);
+
+            // Agora, remova o produto
+            produtoRepository.deleteById(id);
+
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            // Adicione um log para verificar o erro
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     //Editar produto já existente por ID
     @PutMapping("/alterar/{id}")
-    public String atualizarProduto(@PathVariable Long id, @RequestBody Produto novoProduto) {
+    public ResponseEntity<String> atualizarProduto(
+            @PathVariable Long id,
+            @RequestPart("produto") Produto novoProduto,
+            @RequestPart(value = "imagem", required = false) MultipartFile imagem) {
+
         Optional<Produto> produtoExistente = produtoRepository.findById(id);
 
         if (produtoExistente.isPresent()) {
             Produto produto = produtoExistente.get();
 
+            // Atualizando apenas campos que não são nulos
             if (novoProduto.getNome() != null) {
                 produto.setNome(novoProduto.getNome());
             }
@@ -135,32 +154,35 @@ public class ProdutoController {
             if (novoProduto.getCategoria() != null) {
                 produto.setCategoria(novoProduto.getCategoria());
             }
-            if (novoProduto.getEspecificacoes() != null){
+            if (novoProduto.getEspecificacoes() != null) {
                 produto.setEspecificacoes(novoProduto.getEspecificacoes());
             }
             if (novoProduto.getMarca() != null) {
                 produto.setMarca(novoProduto.getMarca());
             }
-            if (novoProduto.getImagem() != null) {
-                produto.setImagem(novoProduto.getImagem());
+
+            // Tratamento para imagem
+            if (imagem != null && !imagem.isEmpty()) {
+                try {
+                    // Salva a imagem no diretório e atualiza o caminho
+                    String caminhoImagem = salvarImagem(imagem);
+                    produto.setImagem(caminhoImagem);
+                } catch (IOException e) {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .body("Erro ao processar a imagem");
+                }
             }
+
             if (novoProduto.getPromocao() != null) {
                 produto.setPromocao(novoProduto.getPromocao());
             }
 
-            // Salve o produto atualizado
+            // Salvar o produto atualizado
             produtoRepository.save(produto);
 
-            // Log para confirmar o salvamento
-
-
-            return "Produto atualizado com sucesso";
+            return ResponseEntity.ok("Produto atualizado com sucesso");
         } else {
-            return "Produto não encontrado";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
         }
-
-
-
-
     }
 }
