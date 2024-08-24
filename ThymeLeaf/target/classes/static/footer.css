@@ -4,6 +4,7 @@
     padding: 0;
 }
 footer{
+    margin-top: 20px;
     background-color: #DFDACE;
     border-top: 5px #9E2218 solid;
     text-align: center;
@@ -44,4 +45,7 @@ footer ul li a{
 footer p{
     margin: 0px;
     padding: 5px;
+    font-size: 1.1em;
+    font-weight: 400;
+    color: #9E2218;
 }

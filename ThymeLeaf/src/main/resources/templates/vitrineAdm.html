@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/vitrine.css}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/vitrineAdm.css}"/>
     <link rel="stylesheet" th:href="@{/navbar.css}">
     <link rel="stylesheet" th:href="@{/footer.css}">
     <meta charset="utf-8">
@@ -13,7 +14,10 @@
 <body>
 <div th:insert="fragments/navbar :: nav"></div>
 <main>
-    <h1>Nossos produtos</h1>
+    <h1>Página de administração</h1>
+    <div class="cadastrar">
+        <a href="/cadastrarproduto" id="cadastrar">Clique aqui para cadastrar novos Produtos &nbsp <i class="fa-solid fa-pen-to-square"></i></a>
+    </div><!--Cadastrar-->
     <article>
         <div class="celula" th:each="produto : ${produtos}">
             <div class="imagem">
@@ -23,10 +27,18 @@
             <h4 th:text="'À vista: R$: ' + ${produto.precoAVista}"></h4>
             <h4 th:text="'À prazo: R$: ' + ${produto.precoAPrazo}"></h4>
             <a th:href="@{/produto/{id}(id=${produto.id})}">Comprar</a>
-            <a th:href="@{/editarproduto/{id}(id=${produto.id})}" class="editar">Editar</a>
-            <!-- Botão de exclusão -->
-            <button type="button" class="deletar" th:onclick="'confirmarExclusao(' + ${produto.id} + ')'">Excluir</button>
-        </div>
+
+            <div class="administracao">
+
+
+                <a th:href="@{/editarproduto/{id}(id=${produto.id})}" class="editar" id="editar"
+                   style="background-color: #dcb900"><i class="fa-solid fa-pen-to-square"></i></a>
+
+                <a class="deletar" th:onclick="'confirmarExclusao(' + ${produto.id} + ')'"
+                   style="background-color: #d42418"><i class="fa-solid fa-trash"></i></a>
+            </div><!--Administracao-->
+
+        </div><!--Celula-->
     </article>
 </main>
 <div th:insert="fragments/footer :: footer"></div>
@@ -39,11 +51,12 @@
         if (confirm('Tem certeza que deseja excluir este produto?')) {
             fetch('/produtos/excluir/' + id, { method: 'DELETE' })
                 .then(response => {
-                    console.log('Status da resposta:', response.status);
+                    console.log('Status da resposta:', response.status); // Adiciona um log para verificar o status
                     if (response.status === 405) {
-                        window.location.reload();
+                        // Ignora o erro 405 e atualiza a página, já que o produto foi excluído corretamente
+                        window.location.reload(); // Recarrega a página para atualizar a lista de produtos
                     } else if (response.ok) {
-                        window.location.reload();
+                        window.location.reload(); // Recarrega a página para atualizar a lista de produtos
                     } else {
                         alert('Erro ao excluir o produto. Tente novamente.');
                     }

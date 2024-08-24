@@ -23,7 +23,6 @@ public String cadastrarProduto() {
     return "cadastrarProduto";
 }
 
-
     @GetMapping("/produto")
         public String produto(){
             return "produto";
@@ -48,7 +47,7 @@ private final RestTemplate restTemplate;
         model.addAttribute("produtos", produtos);
         return "vitrine";
     }
-    @GetMapping("/produtos/listarAdm")
+    @GetMapping("/listarAdm")
     public String listarAdm(Model model) {
         String url = API_URL + "/produtos/listar";
         Produto[] produtos = restTemplate.getForObject(url, Produto[].class);
@@ -56,11 +55,13 @@ private final RestTemplate restTemplate;
         return "vitrineADm";
     }
 
+
+
     @DeleteMapping("/produtos/excluir/{id}")
     public String excluirProduto(@PathVariable Long id, Model model) {
         String url = API_URL + "/produtos/excluir/" + id;
         restTemplate.delete(url);
-        return "redirect:/produtos/listarAdm";
+        return "redirect:/listarAdm";
     }
 
 

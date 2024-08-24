@@ -158,6 +158,7 @@ article {
     color: white;
     font-weight: bold;
     text-decoration: none;
+
 }
 
 #adicionar {
@@ -170,6 +171,7 @@ article {
     margin: 50px auto;
     border-radius: 50px;
     transition: .2s;
+    cursor: pointer;
 }
 #adicionar:hover{
     transform: scale(1.05);
@@ -180,6 +182,9 @@ article {
     background-color: transparent;
     transition: .2s;
     color: white;
+    width: 200px;
+    height: 60px;
+    text-align: center;
 }
 
 
